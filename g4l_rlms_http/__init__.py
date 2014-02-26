@@ -29,7 +29,7 @@ class HTTPAddForm(AddForm):
     base_url     = TextField("Base URL",    validators = [Required(), URL() ])
 
     def __init__(self, add_or_edit, *args, **kwargs):
-        super(HTTPAddAddForm, self).__init__(*args, **kwargs)
+        super(HTTPAddForm, self).__init__(*args, **kwargs)
         self.add_or_edit = add_or_edit
 
     @staticmethod
