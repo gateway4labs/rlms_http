@@ -24,46 +24,23 @@ class RLMS(BaseRLMS):
 
 
     def get_version(self):
-        # Esto es genérico, no hace falta los datos
-        return_value = requests.get(self.http_url + "/version")
-        if return_value in Versions.LOQUESEA:
-             return ...
+         
         return Versions.VERSION_1
 
     def get_capabilities(self):
-        # Esto es genérico, no hace falta los datos
-        return_value = requests.get(self.http_url + "/capabilities")
-        if return_value in Versions.LOQUESEA:
-             return ...
+        
         return Versions.VERSION_1
 
     def test(self):
-        json.loads(self.configuration)
-        # TODO
+         
         return None
 
     def get_laboratories(self):
-        # Opción 1:
-        plugin_config = json.loads(self.http_config) # { 'sb_guid' : '12345', 'auth_guid' : 'foobar' }
-        headers = {}
-        for key, value in plugin_config.iteritems(): 
-            headers['g4l-%s' % key] = value
 
-        return_value = requests.get(self.http_url + "/laboratories", headers = headers)
-        return parsearlo
-        # Opción 2:
-        return_value = requests.post(self.http_url + "/laboratories", data = self.http_config)
-
+        return None
+        
     def reserve(self, laboratory_id, username, institution, general_configuration_str, particular_configurations, request_payload, user_properties, *args, **kwargs):
-        data = { 
-                  'reservation_data' : {
-                   'laboratory_id'  : laboratory_id ... 
-                  },
-                  'plugin_data' : json.loads(self.http_config)
-               }
-                   
-        requests.post(self.http_url + '/laboratories/<laboratory_id>/reserve', data = data)
-
+        return None
 
 
 
