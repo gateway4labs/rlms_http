@@ -11,6 +11,15 @@ from labmanager.rlms import register, Laboratory, BaseRLMS, BaseFormCreator, reg
 from labmanager import app
 
 
+def get_module(version):
+    """get_module(version) -> proper module for that version
+
+    Right now, a single version is supported, so this module itself will be returned.
+    When compatibility is required, we may change this and import different modules.
+    """
+    # TODO: check version
+    return sys.modules[__name__]
+
 
 class HTTPAddForm(AddForm):
 
@@ -98,15 +107,6 @@ class RLMS(BaseRLMS):
         self.http_user = self.configuration['user']
         self.http_passwd = self.configuration['passwd']
         self.http_config = self.configuration['config'] # String, que es un JSON
-
-    def get_module(version):
-        """get_module(version) -> proper module for that version
-
-        Right now, a single version is supported, so this module itself will be returned.
-        When compatibility is required, we may change this and import different modules.
-        """
-        # TODO: check version
-        return sys.modules[__name__]
 
 
     def get_version(self):
