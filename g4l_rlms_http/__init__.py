@@ -46,5 +46,5 @@ http_blueprint = Blueprint('http', __name__)
 def index():
     return "This is the index for HTTP"
 
-register("HTTP", '[0.1]', __name__)
+register("HTTP", ['0.1'], __name__)
 register_blueprint(http_blueprint, '/http')
