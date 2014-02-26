@@ -87,7 +87,7 @@ class HTTPFormCreator(BaseFormCreator):
     def get_lms_permission_form(self):
         return HTTPLmsPermissionForm
 
-FORM_CREATOR = WebLabFormCreator()
+FORM_CREATOR = HTTPFormCreator()
 
 
 
