@@ -10,10 +10,6 @@ from labmanager.forms import AddForm, RetrospectiveForm, GenericPermissionForm
 from labmanager.rlms import register, Laboratory, BaseRLMS, BaseFormCreator, register_blueprint, Capabilities, Versions
 from labmanager import app
 
-from .http_client import HTTPClient
-from .http_data import ExperimentId
-
-
 class RLMS(BaseRLMS):
     def __init__(self, configuration):
         self.configuration = json.loads(configuration)
