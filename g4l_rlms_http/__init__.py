@@ -26,8 +26,6 @@ class HTTPAddForm(AddForm):
     remote_login = TextField("Login",        validators = [Required()])
     password     = PasswordField("Password")
 
-    base_url     = TextField("Base URL",    validators = [Required(), URL() ])
-
     def __init__(self, add_or_edit, *args, **kwargs):
         super(HTTPAddForm, self).__init__(*args, **kwargs)
         self.add_or_edit = add_or_edit
@@ -44,28 +42,7 @@ class HTTPAddForm(AddForm):
         if form.add_or_edit and field.data == '':
             raise ValidationError("This field is required.")
 
-    def validate_mappings(form, field):
-        try:
-            content = json.loads(field.data)
-        except:
-            raise ValidationError("Invalid json content")
-        
-        if not isinstance(content, dict):
-            raise ValidationError("Dictionary expected")
-        
-        for key in content:
-            if not isinstance(key, basestring):
-                raise ValidationError("Keys must be strings")
-           
-            if '@' not in key:
-                raise ValidationError("Key format: experiment_name@experiment_category ")
-                
-            value = content[key]
-            if not isinstance(value, basestring):
-                raise ValidationError("Values must be strings")
-           
-            if '@' not in value:
-                raise ValidationError("Value format: experiment_name@experiment_category ")
+
 
 class HTTPPermissionForm(RetrospectiveForm):
     priority = TextField("Priority")
@@ -101,12 +78,16 @@ FORM_CREATOR = HTTPFormCreator()
 
 
 class RLMS(BaseRLMS):
+
     def __init__(self, configuration):
-        self.configuration = json.loads(configuration)
+        configuration = json.loads(configuration)
         self.http_url = self.configuration['url']
         self.http_user = self.configuration['user']
         self.http_passwd = self.configuration['passwd']
-        self.http_config = self.configuration['config'] # String, que es un JSON
+        self.http_config = self.configuration['config'] # String, a JSON
+
+        if self.login is None or self.password is None or self.base_url is None:
+            raise Exception("Laboratory misconfigured: fields missing" )
 
 
     def get_version(self):
@@ -124,9 +105,23 @@ class RLMS(BaseRLMS):
     def get_laboratories(self):
 
         return None
-        
+            
     def reserve(self, laboratory_id, username, institution, general_configuration_str, particular_configurations, request_payload, user_properties, *args, **kwargs):
         return None
+
+    def get_http_user(self):
+        return self.http_user
+
+    @app.route('/get_properties/<mself>')
+    def get_properties(mself):
+        # 
+        # TODO: CSRF is not used here. Security hole
+        # 
+        
+        http_user = mself.get_http_user()
+    
+        asasa
+          
 
 
 
